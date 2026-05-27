@@ -25,8 +25,9 @@ if (process.env.NODE_ENV !== 'production') {
     });
   }).catch(err => console.error('Failed to connect to Postgres', err));
 } else {
-  // In production (Vercel), we just sync and export the app
-  sequelize.sync({ alter: true }).catch(err => console.error(err));
+  // In production (Vercel), we skip sync on every cold start to avoid timeouts/race conditions.
+  // Models are just exported for queries.
+  console.log('Skipping sync in production. Ensure DB schema is up to date.');
 }
 
 module.exports = app;
