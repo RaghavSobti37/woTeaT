@@ -17,13 +17,16 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'Backend 
 
 const PORT = process.env.PORT || 5000;
 
-sequelize.sync({ alter: true }) // Sync models with database
-  .then(() => {
+if (process.env.NODE_ENV !== 'production') {
+  sequelize.sync({ alter: true }).then(() => {
     console.log('Connected to Postgres and synchronized models');
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-  })
-  .catch(err => {
-    console.error('Failed to connect to Postgres', err);
-  });
+  }).catch(err => console.error('Failed to connect to Postgres', err));
+} else {
+  // In production (Vercel), we just sync and export the app
+  sequelize.sync({ alter: true }).catch(err => console.error(err));
+}
+
+module.exports = app;
