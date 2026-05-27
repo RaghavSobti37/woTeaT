@@ -7,6 +7,12 @@ const sequelize = new Sequelize(process.env.POSTGRES_URL || process.env.POSTGRES
   dialect: 'postgres',
   dialectModule: pg,
   logging: false,
+  dialectOptions: (process.env.POSTGRES_URL || process.env.POSTGRES_URI) ? {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  } : {}
 });
 
 module.exports = sequelize;
