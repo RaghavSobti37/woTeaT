@@ -57,8 +57,8 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
       const tx = deductWalletForOrder(dish.price, dish.name, restaurantName);
       
       onAddToast({
-        title: "★ MEAL RATION ORDERED ★",
-        message: `Dispatched "${dish.name}" from ${restaurantName}. Charged: ₹${dish.price}.`,
+        title: "Order Placed",
+        message: `Got it! "${dish.name}" from ${restaurantName} is on its way. Charged: ₹${dish.price}.`,
         type: "success"
       });
 
@@ -89,18 +89,19 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
 
   return (
     <div>
-      {/* Soviet Savings Illusion Banner */}
+      {/* Savings Banner */}
       <div className="savings-banner">
-        <span>PROLETARIAT METRICS: COMMUNITY DINING SCHEME HAS SAVED YOU ₹{savingsValue} IN INDIVIDUAL MARKUPS!</span>
+        <span>We've saved you ₹{savingsValue} on your food orders so far! What you save stays in your fund.</span>
       </div>
 
       <div className="app-grid">
         {/* Left Side: Recommendations & Browse */}
         <div>
           {/* Persona Card */}
+          {/* Note: Profile is now also shown in the header, keeping this as Your Taste Profile */}
           <div className="soviet-panel tilt-left" style={{ borderStyle: 'double', borderWidth: '5px' }}>
             <div className="soviet-stamp red-stamp">{userPersona.stencil}</div>
-            <h3 className="stencil-header" style={{ fontSize: '1.4rem' }}>ACTIVE TASTE PASSPORT</h3>
+            <h3 className="stencil-header" style={{ fontSize: '1.4rem' }}>YOUR TASTE PROFILE</h3>
             <div style={{ marginTop: '0.5rem' }}>
               <h2 style={{ color: 'var(--color-charcoal)', fontSize: '1.6rem' }}>{userPersona.title}</h2>
               <p style={{ fontSize: '0.9rem', color: '#444', fontStyle: 'italic', marginTop: '0.2rem' }}>
@@ -111,7 +112,7 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
             <div className="soviet-divider"></div>
             
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
-              <span>ACTIVE PROFILE VECTORS:</span>
+              <span>MATCHMAKER PROFILE:</span>
               {[
                 { l: "SPY", v: userVector[0] },
                 { l: "SWT", v: userVector[1] },
@@ -128,9 +129,9 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
 
           {/* Daily Recommendations */}
           <div className="soviet-panel tilt-right">
-            <h3 className="stencil-header">TODAY'S DIET RECOMMENDATIONS</h3>
+            <h3 className="stencil-header">TODAY'S PICKS FOR YOU</h3>
             <p style={{ fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '1.25rem' }}>
-              Calculated matching vector similarity. 50% fatigue penalty is active on recent categories: 
+              Curated just for you by our Matchmaker. We try to keep it fresh based on what you've eaten recently: 
               {recentCategories.length === 0 ? " None yet" : ` [${recentCategories.join(', ')}]`}.
             </p>
 
@@ -174,7 +175,7 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
                         className="soviet-btn btn-red btn-small"
                         onClick={() => handleOrderMeal(dish, dish.restaurantName)}
                       >
-                        ORDER RATION
+                        ORDER NOW
                       </button>
                     </div>
                   </div>
@@ -185,9 +186,9 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
 
           {/* Restaurant Registry */}
           <div className="soviet-panel tilt-left">
-            <h3 className="stencil-header">NASHIK RESTAURANT REGISTRY (20)</h3>
+            <h3 className="stencil-header">NASHIK RESTAURANTS (20)</h3>
             <p style={{ fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '1rem' }}>
-              Select a cooperative canteen to inspect specific local offerings.
+              Browse our partnered restaurants to see their menus.
             </p>
 
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
@@ -259,15 +260,15 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
         <div>
           <div className="soviet-panel tilt-right" style={{ background: 'var(--color-cardboard)' }}>
             <h3 style={{ fontSize: '1.25rem', color: 'var(--color-charcoal)', display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'center' }}>
-              <SovietStar width="18" height="18" /> RATION SCHEME <SovietStar width="18" height="18" />
+              <SovietStar width="18" height="18" /> SUBSCRIPTION PLAN <SovietStar width="18" height="18" />
             </h3>
             <p style={{ fontSize: '0.8rem', fontStyle: 'italic', margin: '0.3rem 0 1rem 0', textAlign: 'center' }}>
-              Select subscription tier.
+              Your current meal plan.
             </p>
             
             <div style={{ border: '2px dashed var(--color-charcoal)', padding: '0.75rem', background: '#F2EFE9', marginBottom: '0.75rem' }}>
-              <h4 style={{ fontSize: '1rem', color: 'var(--color-red)' }}>COMRADE WEEKLY PLAN</h4>
-              <p style={{ fontSize: '0.75rem' }}>7 scheduled meal dispatches, automated logistics routing.</p>
+              <h4 style={{ fontSize: '1rem', color: 'var(--color-red)' }}>WEEKLY PLAN</h4>
+              <p style={{ fontSize: '0.75rem' }}>7 scheduled meals, delivered right when you want them.</p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}>₹750 / Week</span>
                 <span style={{ fontSize: '0.7rem', background: 'var(--color-army-green)', color: 'white', padding: '2px 5px', fontFamily: 'var(--font-mono)' }}>
@@ -288,7 +289,7 @@ export default function Dashboard({ userVector, userPersona, onAddToast, onUpdat
 
           <div className="soviet-panel tilt-left">
             <h3 style={{ fontSize: '1.2rem', color: 'var(--color-charcoal)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <CanteenGear width="20" height="20" /> COMMISSARIAT SYSTEM INFO
+              <CanteenGear width="20" height="20" /> SYSTEM INFO
             </h3>
             <div style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
               <div>HOST: WOTEAT.PWA.LOCAL</div>

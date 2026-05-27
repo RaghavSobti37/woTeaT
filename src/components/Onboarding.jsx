@@ -187,9 +187,9 @@ export default function Onboarding({ onComplete }) {
       <div className="onboarding-container" style={{ marginTop: '1rem' }}>
         <div className="soviet-panel tilt-left">
           <div className="soviet-stamp">PHASE 1/7</div>
-          <h3 className="stencil-header" style={{ fontSize: '1.4rem' }}>PERSONAL REGISTRY</h3>
+          <h3 className="stencil-header" style={{ fontSize: '1.4rem' }}>SET UP YOUR PROFILE</h3>
           <p style={{ fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '1.5rem' }}>
-            Register your coordinates with the union culinary database.
+            Register your coordinates with the Matchmaker database.
           </p>
 
           <form onSubmit={handlePersonalSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -263,7 +263,7 @@ export default function Onboarding({ onComplete }) {
             </div>
 
             <button type="submit" className="soviet-btn btn-red btn-block" style={{ marginTop: '0.5rem' }}>
-              NEXT: DESIGN DAILY RHYTHM ➔
+              NEXT: SET YOUR SCHEDULE ➔
             </button>
           </form>
         </div>
@@ -340,18 +340,18 @@ export default function Onboarding({ onComplete }) {
       <div className="onboarding-container">
         <div className="soviet-panel tilt-left">
           <div className="soviet-stamp">PHASE 3/7</div>
-          <h3 className="stencil-header" style={{ fontSize: '1.4rem' }}>SET YOUR CULINARY PARAMETERS</h3>
+          <h3 className="stencil-header" style={{ fontSize: '1.4rem' }}>SET YOUR DAILY BUDGET</h3>
           <p style={{ fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '1.5rem' }}>
-            Premium curation, strictly within your limits. What is your daily target?
+            Tell us your budget, and we'll always find you something great for that price or less.
           </p>
 
           <form onSubmit={handleBudgetSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
             <div style={{ width: '100%', background: 'var(--color-charcoal)', color: 'white', padding: '1.5rem', textAlign: 'center', boxShadow: '4px 4px 0 var(--color-cardboard)' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>DAILY LOGISTICS MAXIMUM</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>DAILY MEAL BUDGET</span>
               <h2 style={{ fontSize: '3.5rem', fontFamily: 'var(--font-mono)', color: 'var(--color-paper-light)', margin: '0.2rem 0' }}>
                 ₹{maxBudget}
               </h2>
-              <span style={{ fontSize: '0.7rem', color: '#ccc', fontFamily: 'var(--font-mono)' }}>COMRADE LIMIT BOUNDARY</span>
+              <span style={{ fontSize: '0.7rem', color: '#ccc', fontFamily: 'var(--font-mono)' }}>BUDGET BOUNDARY</span>
             </div>
 
             <div style={{ width: '100%', padding: '0 1rem' }}>
@@ -386,9 +386,9 @@ export default function Onboarding({ onComplete }) {
       <div className="onboarding-container">
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <span style={{ fontSize: '2.5rem', color: 'var(--color-red)' }}><SovietStar width="40" height="40" style={{ display: 'inline-block' }} /></span>
-          <h2 style={{ fontSize: '1.6rem', color: 'var(--color-charcoal)', marginTop: '0.5rem' }}>CALIBRATING PALATE (PHASE {currentSurveyIdx + 1}/6)</h2>
+          <h2 style={{ fontSize: '1.6rem', color: 'var(--color-charcoal)', marginTop: '0.5rem' }}>BUILDING YOUR TASTE PROFILE (PHASE {currentSurveyIdx + 1}/6)</h2>
           <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
-            VECTOR ANALYSIS IN PROGRESS
+            MATCHMAKER ANALYSIS IN PROGRESS
           </p>
         </div>
 
@@ -460,20 +460,20 @@ export default function Onboarding({ onComplete }) {
         <div className="soviet-panel tilt-right" style={{ border: '3px dashed var(--color-red)' }}>
           <div className="soviet-stamp red-stamp">PHASE 7/7</div>
           <h3 style={{ color: 'var(--color-red)', fontSize: '1.6rem', textAlign: 'center', marginBottom: '0.5rem' }}>
-            AUTOPILOT ENGAGED. FUND YOUR FREEDOM.
+            LET US HANDLE IT. ADD TO YOUR FOOD FUND.
           </h3>
           <p style={{ fontSize: '0.9rem', fontStyle: 'italic', textAlign: 'center', marginBottom: '1.5rem' }}>
-            Load your UPI reserve. 100% of this goes toward your curated meals. Zero hidden fees. Pause anytime.
+            Add money to your Food Fund. We'll always find you something great for your budget or less. Whatever you save stays in your fund.
           </p>
 
           <div className="upi-ration-card" style={{ background: '#FAF8F5' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', borderBottom: '2px solid var(--color-charcoal)', paddingBottom: '0.5rem' }}>
-              <span>SUITE: SUBSCRIPTION RESERVE</span>
+              <span>SUITE: FOOD FUND</span>
               <span>STATE: INITIAL CODES</span>
             </div>
 
             <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
-              <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>RECOMMENDED CAPITAL RESERVE</p>
+              <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>RECOMMENDED FOOD FUND</p>
               <h2 style={{ fontSize: '3rem', fontFamily: 'var(--font-mono)', color: 'var(--color-red)' }}>₹1,500</h2>
               <span style={{ fontSize: '0.65rem', color: '#666', display: 'block', marginTop: '0.2rem' }}>Includes weekly subscription credit + canteens reserves</span>
             </div>
@@ -505,13 +505,13 @@ export default function Onboarding({ onComplete }) {
     return (
       <div className="onboarding-container">
         <div className="soviet-panel tilt-left" style={{ borderStyle: 'double', borderWidth: '6px' }}>
-          <div className="soviet-stamp red-stamp">PASSPORT ISSUED</div>
+          <div className="soviet-stamp red-stamp">PROFILE READY</div>
           
           <h2 style={{ textAlign: 'center', color: 'var(--color-red)', fontSize: '2.2rem', marginBottom: '0.5rem' }}>
-            ⭐ TASTE PASSPORT ⭐
+            ⭐ TASTE PROFILE ⭐
           </h2>
           <p style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>
-            UNION OF SOVIET SOCIALIST FLAVORS (U.S.S.F.)
+            YOUR PERSONAL MATCHMAKER PREFERENCES
           </p>
           
           <div className="soviet-line-heavy"></div>
@@ -551,7 +551,7 @@ export default function Onboarding({ onComplete }) {
           <div className="soviet-line-heavy"></div>
           
           <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', marginBottom: '0.75rem' }}>
-            METABOLIC VECTOR READOUT:
+            MATCHMAKER PROFILE BREAKDOWN:
           </h4>
           
           <div className="qa-vector-graph" style={{ margin: '1rem 0' }}>
@@ -578,7 +578,7 @@ export default function Onboarding({ onComplete }) {
           
           <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
             <button className="soviet-btn btn-red btn-block" onClick={handlePassportComplete}>
-              ENTER THE FOOD RATION COMMISSARIAT ➔
+              ENTER DASHBOARD ➔
             </button>
           </div>
         </div>

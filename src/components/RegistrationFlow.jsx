@@ -11,6 +11,7 @@ export default function RegistrationFlow({ onComplete, onCancel }) {
   });
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
@@ -52,10 +53,20 @@ export default function RegistrationFlow({ onComplete, onCancel }) {
       
       localStorage.setItem('woteat_token', data.token);
       
-      const defaultVector = data.user.tasteProfile?.vector || [0.5, 0.5, 0.5, 0.5, 0.5];
-      const defaultPersona = { title: data.user.tasteProfile?.persona || 'Explorer' };
+      const vector = data.user.tasteProfile?.vector;
+      const persona = data.user.tasteProfile?.persona;
       
-      onComplete(defaultVector, defaultPersona, data.user);
+      if (vector && persona) {
+        onComplete(vector, { title: persona }, data.user);
+      } else {
+        // Missing profile, needs onboarding
+        if (typeof onRequireOnboarding === 'function') {
+          onRequireOnboarding(data.user);
+        } else {
+          // Fallback if not passed
+          onComplete(null, null, data.user);
+        }
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -74,53 +85,76 @@ export default function RegistrationFlow({ onComplete, onCancel }) {
           ← Back
         </button>
 
-        <h2 style={{ fontSize: '2rem', fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)', marginBottom: '1.5rem' }}>
-          Create Your Account
+        <h2 style={{ fontSize: '2rem', fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)', marginBottom: '0.5rem' }}>
+          {isLogin ? 'Login to your account' : 'Create Your Account'}
         </h2>
+        
+        <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem' }}>
+          <button 
+            onClick={() => setIsLogin(true)} 
+            style={{ flex: 1, padding: '0.5rem', background: isLogin ? 'var(--color-charcoal)' : '#ddd', color: isLogin ? 'white' : 'black', border: 'none', cursor: 'pointer' }}
+          >
+            Login
+          </button>
+          <button 
+            onClick={() => setIsLogin(false)} 
+            style={{ flex: 1, padding: '0.5rem', background: !isLogin ? 'var(--color-charcoal)' : '#ddd', color: !isLogin ? 'white' : 'black', border: 'none', cursor: 'pointer' }}
+          >
+            Register
+          </button>
+        </div>
 
         {error && <div style={{ color: 'var(--color-red)', marginBottom: '1rem', fontWeight: 'bold' }}>{error}</div>}
 
         <form onSubmit={requestLogin}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Name</label>
-              <input type="text" name="name" className="soviet-input" style={{ width: '100%' }} value={formData.name} onChange={handleInputChange} required />
-            </div>
-            
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Email</label>
-              <input type="email" name="email" className="soviet-input" style={{ width: '100%' }} value={formData.email} onChange={handleInputChange} required />
-            </div>
-            
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Phone Number (for OTP)</label>
-              <input type="tel" name="phone" className="soviet-input" style={{ width: '100%' }} value={formData.phone} onChange={handleInputChange} required />
-            </div>
+          {!isLogin && (
+            <>
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Name</label>
+                <input type="text" name="name" className="soviet-input" style={{ width: '100%' }} value={formData.name} onChange={handleInputChange} required />
+              </div>
+              
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Email</label>
+                <input type="email" name="email" className="soviet-input" style={{ width: '100%' }} value={formData.email} onChange={handleInputChange} required />
+              </div>
+            </>
+          )}
 
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Gender</label>
-              <select name="gender" className="soviet-input" style={{ width: '100%' }} value={formData.gender} onChange={handleInputChange} required>
-                <option value="">Select...</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Phone Number (for OTP)</label>
+            <input type="tel" name="phone" className="soviet-input" style={{ width: '100%' }} value={formData.phone} onChange={handleInputChange} required />
+          </div>
 
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Location</label>
-              {formData.location ? (
-                <div style={{ color: 'var(--color-army-green)', fontWeight: 'bold' }}>✓ Location Captured</div>
-              ) : (
-                <button type="button" className="soviet-btn btn-small" onClick={getLocation}>
-                  Grant Location Access
-                </button>
-              )}
-            </div>
+          {!isLogin && (
+            <>
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Gender</label>
+                <select name="gender" className="soviet-input" style={{ width: '100%' }} value={formData.gender} onChange={handleInputChange} required>
+                  <option value="">Select...</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
 
-            <button type="submit" className="soviet-btn btn-red btn-block" disabled={loading || !formData.location}>
-              {loading ? 'Logging in...' : 'Continue'}
-            </button>
-          </form>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Location</label>
+                {formData.location ? (
+                  <div style={{ color: 'var(--color-army-green)', fontWeight: 'bold' }}>✓ Location Captured</div>
+                ) : (
+                  <button type="button" className="soviet-btn btn-small" onClick={getLocation}>
+                    Grant Location Access
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+
+          <button type="submit" className="soviet-btn btn-red btn-block" disabled={loading || (!isLogin && !formData.location)}>
+            {loading ? 'Processing...' : isLogin ? 'Login' : 'Register'}
+          </button>
+        </form>
       </div>
     </div>
   );

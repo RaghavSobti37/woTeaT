@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { SovietStar } from './Graphics';
 import RegistrationFlow from './RegistrationFlow';
 
-export default function Home({ onStartJourney, onLoginProfile }) {
+export default function Home({ onStartJourney, onLoginProfile, onRequireOnboarding }) {
   const [showRegistration, setShowRegistration] = useState(false);
 
   if (showRegistration) {
-    return <RegistrationFlow onComplete={onLoginProfile} onCancel={() => setShowRegistration(false)} />;
+    return <RegistrationFlow onComplete={onLoginProfile} onRequireOnboarding={onRequireOnboarding} onCancel={() => setShowRegistration(false)} />;
   }
 
   return (
@@ -38,6 +38,17 @@ export default function Home({ onStartJourney, onLoginProfile }) {
           <button className="soviet-btn btn-red btn-block" style={{ fontSize: '1.25rem' }} onClick={() => setShowRegistration(true)}>
             ★ GET STARTED ★
           </button>
+        </div>
+
+        <div style={{ marginTop: '2.5rem', textAlign: 'left', padding: '1.5rem', background: 'var(--color-cardboard)', border: '2px solid var(--color-charcoal)' }}>
+          <h4 style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)', marginBottom: '1rem', fontSize: '1.2rem', textAlign: 'center' }}>
+            HOW IT WORKS
+          </h4>
+          <ol style={{ paddingLeft: '1.2rem', margin: 0, fontSize: '0.95rem', lineHeight: '1.6', color: '#333' }}>
+            <li style={{ marginBottom: '0.8rem' }}><strong>Tell us what you like.</strong> (Swipe on a few food photos to build your Taste Profile).</li>
+            <li style={{ marginBottom: '0.8rem' }}><strong>Add to your Food Fund.</strong> (Set your budget and load your wallet via UPI).</li>
+            <li><strong>Approve & Eat.</strong> (We ping you 1 hour before mealtime. Tap 'Yes', or hit 'Go Wild' for a surprise).</li>
+          </ol>
         </div>
 
         <div className="soviet-line-heavy" style={{ margin: '2rem 0 0.5rem 0' }}></div>

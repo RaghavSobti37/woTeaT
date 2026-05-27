@@ -36,8 +36,7 @@ const User = sequelize.define('User', {
     defaultValue: 0
   },
   tasteVector: {
-    type: DataTypes.ARRAY(DataTypes.FLOAT),
-    defaultValue: [0.5, 0.5, 0.5, 0.5, 0.5]
+    type: DataTypes.VECTOR(5)
   },
   tastePersona: {
     type: DataTypes.STRING,
@@ -53,6 +52,14 @@ const User = sequelize.define('User', {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   }
+}, {
+  indexes: [
+    {
+      fields: ['tasteVector'],
+      using: 'hnsw',
+      operator: 'vector_cosine_ops' // Required by pgvector for cosine distance
+    }
+  ]
 });
 
 module.exports = User;

@@ -61,10 +61,15 @@ export default function App() {
     setWalletBalance(getWalletBalance());
     
     addToast({
-      title: "PASSPORT VERIFIED",
-      message: `Greetings Comrade! Assigned Persona: ${persona.title}. Promo balance ₹1,000 credited.`,
+      title: "PROFILE READY",
+      message: `Your Matchmaker profile is ready! Promo balance ₹1,000 added to your Food Fund.`,
       type: "success"
     });
+  };
+
+  const handleRequireOnboarding = (userResponseData) => {
+    setUserData(userResponseData);
+    setIsOnboarding(true);
   };
 
   const handleResetProfile = () => {
@@ -78,8 +83,8 @@ export default function App() {
       setIsOnboarding(false);
       setActiveTab("dashboard");
       addToast({
-        title: "PASSPORT DE-AUTHORIZED",
-        message: "Your profile has been cleared. Run survey again.",
+        title: "PROFILE RESET",
+        message: "Your profile has been cleared. Let's set it up again.",
         type: "info"
       });
     }
@@ -99,6 +104,7 @@ export default function App() {
             <Home 
               onStartJourney={() => setIsOnboarding(true)} 
               onLoginProfile={handleOnboardingComplete} 
+              onRequireOnboarding={handleRequireOnboarding}
             />
           )}
         </main>
@@ -118,9 +124,15 @@ export default function App() {
           </div>
         </div>
 
-        <div className="header-actions">
+        <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {userPersona && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', borderRight: '2px solid var(--border-color)', paddingRight: '1rem' }}>
+              <span style={{ fontWeight: 'bold', fontSize: '0.95rem' }}>{userData?.name || 'Foodie'}</span>
+              <span style={{ fontSize: '0.75rem', color: '#666' }}>{userPersona.title}</span>
+            </div>
+          )}
           <div className="wallet-badge">
-            <span>LEDGER VALUE:</span>
+            <span>MEAL BALANCE:</span>
             <strong style={{ color: walletBalance < 500 ? 'var(--color-red)' : 'inherit' }}>
               ₹{walletBalance.toLocaleString('en-IN')}
             </strong>
@@ -128,30 +140,30 @@ export default function App() {
           </div>
           
           <button className="soviet-btn btn-small" onClick={handleResetProfile}>
-            RESET PASSPORT
+            USER SETTINGS
           </button>
         </div>
       </header>
 
-      {/* Main Soviet Desk Tabs */}
+      {/* Main Friendly Tabs */}
       <nav className="soviet-tabs">
         <button 
           className={`soviet-tab ${activeTab === 'dashboard' ? 'active' : ''}`}
           onClick={() => setActiveTab("dashboard")}
         >
-          ★ DIET COMMISSAR
+          ★ DASHBOARD
         </button>
         <button 
           className={`soviet-tab ${activeTab === 'logistics' ? 'active' : ''}`}
           onClick={() => setActiveTab("logistics")}
         >
-          ⚙️ LOGISTICS & PINGS
+          ⚙️ MY DELIVERIES
         </button>
         <button 
           className={`soviet-tab ${activeTab === 'wallet' ? 'active' : ''}`}
           onClick={() => setActiveTab("wallet")}
         >
-          ☭ ACCOUNTING & UPI
+          ₹ FOOD FUND
         </button>
         {(userData?.phone === '+91 8591499393' || userData?.phone === '8591499393' || userData?.email === 'raghavsobti37@gmail.com') && (
           <>

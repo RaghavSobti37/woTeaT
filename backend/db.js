@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 const pg = require('pg');
+const pgvector = require('pgvector/sequelize');
 require('pg-hstore');
 require('dotenv').config();
 
@@ -14,5 +15,8 @@ const sequelize = new Sequelize(process.env.POSTGRES_URL || process.env.POSTGRES
     }
   } : {}
 });
+
+// Register pgvector support
+pgvector.registerType(Sequelize);
 
 module.exports = sequelize;
